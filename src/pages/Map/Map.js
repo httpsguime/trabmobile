@@ -9,9 +9,16 @@ const MapScreen = () => {
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
 
+  // Lista de membros do motoclube com suas localizações
+  const members = [
+    { id: 1, name: "João", latitude: -23.5505, longitude: -46.6333, description: "Membro 1" }, // Exemplo: São Paulo
+    { id: 2, name: "Maria", latitude: -22.9068, longitude: -43.1729, description: "Membro 2" }, // Exemplo: Rio de Janeiro
+    { id: 3, name: "Carlos", latitude: -30.0346, longitude: -51.2177, description: "Membro 3" }, // Exemplo: Porto Alegre
+    // Adicione mais membros conforme necessário
+  ];
+
   useEffect(() => {
     const getLocation = async () => {
-      // Solicitar permissão para acessar a localização
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permissão para acessar a localização foi negada');
@@ -19,7 +26,6 @@ const MapScreen = () => {
         return;
       }
 
-      // Obter a localização atual
       let location = await Location.getCurrentPositionAsync({});
       setRegion({
         latitude: location.coords.latitude,
@@ -58,6 +64,14 @@ const MapScreen = () => {
           title={"Você está aqui"}
           description={"Localização atual"}
         />
+        {members.map(member => (
+          <Marker
+            key={member.id}
+            coordinate={{ latitude: member.latitude, longitude: member.longitude }}
+            title={member.name}
+            description={member.description}
+          />
+        ))}
       </MapView>
     </View>
   );
@@ -82,6 +96,7 @@ const styles = StyleSheet.create({
 });
 
 export default MapScreen;
+
 
 
 

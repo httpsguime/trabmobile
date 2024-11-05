@@ -7,12 +7,16 @@ const LoginScreen = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // Defina um login e senha pré-definidos
+  const predefinedEmail = 'sla';
+  const predefinedPassword = '123';
+
   const handleLogin = () => {
-    console.log('Email:', email);
-    console.log('Password:', password);
-    
-    // Simulação de autenticação bem-sucedida
-    setIsLoggedIn(true); // Altera o estado para logado
+    if (email === predefinedEmail && password === predefinedPassword) {
+      setIsLoggedIn(true); // Altera o estado para logado
+    } else {
+      alert('Login ou senha incorretos. Tente novamente.'); // Mensagem de erro
+    }
   };
 
   return (
@@ -48,6 +52,8 @@ const LoginScreen = ({ setIsLoggedIn }) => {
 };
 
 export default LoginScreen;
+
+
 
 
 

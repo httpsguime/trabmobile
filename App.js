@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,6 +8,7 @@ import Login from './src/pages/Login/Login';
 import Map from './src/pages/Map/Map';
 import Members from './src/pages/Members/Members';
 import MemberDetails from './src/pages/Members/MemberDetails'; // Componente para detalhes do membro
+import Profile from './src/pages/Profile/ProfileScreen'; // Adicione a importação da tela de perfil
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -30,37 +31,44 @@ function MembersStack() {
 }
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <NavigationContainer>
-      <Tab.Navigator tabBar={(props) => <Navbar {...props} />}>
-        <Tab.Screen 
-          name="Login" 
-          component={Login} 
-          options={{ 
-            headerShown: false,
-            tabBarLabel: 'Entrar' // Nome personalizado para a aba de login
-          }} 
-        />
-        <Tab.Screen 
-          name="Map" 
-          component={Map} 
-          options={{ 
-            headerShown: false,
-            tabBarLabel: 'Mapa' // Nome personalizado para a aba de mapa
-          }} 
-        />
-        <Tab.Screen 
-          name="Members" // Mudando para 'Members' em vez de 'MembersStack'
-          component={MembersStack} // Mantendo a estrutura de Stack aqui
-          options={{ 
-            headerShown: false,
-            tabBarLabel: 'Membros' // Nome personalizado para a aba de membros
-          }}
-        />
-      </Tab.Navigator>
+      {!isLoggedIn ? (
+        <Login setIsLoggedIn={setIsLoggedIn} /> // Mostra a tela de login se não estiver logado
+      ) : (
+        <Tab.Navigator tabBar={(props) => <Navbar {...props} />}>
+          <Tab.Screen 
+            name="Profile" 
+            component={Profile} 
+            options={{ 
+              headerShown: false,
+              tabBarLabel: 'Perfil' // Nome personalizado para a aba de perfil
+            }} 
+          />
+          <Tab.Screen 
+            name="Map" 
+            component={Map} 
+            options={{ 
+              headerShown: false,
+              tabBarLabel: 'Mapa' // Nome personalizado para a aba de mapa
+            }} 
+          />
+          <Tab.Screen 
+            name="MembersStack" 
+            component={MembersStack} 
+            options={{ 
+              headerShown: false,
+              tabBarLabel: 'Membros' // Nome personalizado para a aba de membros
+            }}
+          />
+        </Tab.Navigator>
+      )}
     </NavigationContainer>
   );
 }
+
 
 
 

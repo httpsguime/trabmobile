@@ -35,8 +35,10 @@ export default function Navbar({ state, descriptors, navigation }) {
           iconName = isFocused ? 'map' : 'map-outline';
         } else if (route.name === 'Members') {
           iconName = isFocused ? 'people' : 'people-outline';
+        } else if (route.name === 'Profile') { // Lógica para o ícone de perfil
+          iconName = isFocused ? 'person' : 'person-outline';
         } else {
-          iconName = 'help-circle-outline'; // Ícone padrão caso ocorra erro
+          iconName = 'help-circle-outline'; // Ícone padrão
         }
 
         return (
@@ -48,7 +50,7 @@ export default function Navbar({ state, descriptors, navigation }) {
           >
             <Ionicons
               name={iconName}
-              size={28}
+              size={30} // Aumentar o tamanho do ícone se necessário
               color={isFocused ? '#FFD700' : '#888'}
               style={isFocused && styles.iconFocused}
             />
@@ -79,6 +81,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
+    justifyContent: 'center', // Adicionando para centralizar verticalmente
     paddingHorizontal: 16,
   },
   focusedButton: {
@@ -101,5 +104,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
 });
+
+
 
 

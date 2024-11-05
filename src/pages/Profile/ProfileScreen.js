@@ -1,24 +1,33 @@
+// src/pages/Profile/Profile.js
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
-const MemberDetails = ({ route, navigation }) => {
-  const { member } = route.params;
+const Profile = () => {
+  // Informações do usuário (substitua pelos dados reais)
+  const user = {
+    name: 'Marcio de Souza',
+    document: '1234567890',
+    age: 30,
+    motorcycle: 'Honda CB500F',
+    city: 'São Paulo',
+    photo: 'https://via.placeholder.com/150', // URL da foto do usuário
+  };
 
   return (
     <View style={styles.container}>
-      {/* Imagem do membro (opcional) */}
+      {/* Imagem do usuário */}
       <Image 
-        source={{ uri: member.photo || 'https://via.placeholder.com/150' }} // Substitua pela URL da imagem do membro, se houver
+        source={{ uri: user.photo }} // Imagem do usuário
         style={styles.image}
       />
-      <Text style={styles.title}>{member.name}</Text>
+      <Text style={styles.title}>Perfil do Usuário</Text>
       <View style={styles.infoContainer}>
-        <Text style={styles.info}>Idade: <Text style={styles.infoValue}>{member.age}</Text></Text>
-        <Text style={styles.info}>Moto: <Text style={styles.infoValue}>{member.motorcycle}</Text></Text>
+        <Text style={styles.info}>Nome Completo: <Text style={styles.infoValue}>{user.name}</Text></Text>
+        <Text style={styles.info}>Documento: <Text style={styles.infoValue}>{user.document}</Text></Text>
+        <Text style={styles.info}>Idade: <Text style={styles.infoValue}>{user.age}</Text></Text>
+        <Text style={styles.info}>Moto: <Text style={styles.infoValue}>{user.motorcycle}</Text></Text>
+        <Text style={styles.info}>Cidade: <Text style={styles.infoValue}>{user.city}</Text></Text>
       </View>
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.button}>
-        <Text style={styles.buttonText}>Voltar</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -30,6 +39,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#1E1E1E',
     padding: 20,
+    paddingTop: 40,
   },
   image: {
     width: 150,
@@ -47,7 +57,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     color: '#FFD700',
-    marginBottom: 10,
+    marginBottom: 20,
     textAlign: 'center',
     fontWeight: 'bold',
   },
@@ -62,35 +72,19 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowRadius: 8,
     elevation: 5, // Sombra para Android
-    marginBottom: 20,
   },
   info: {
     fontSize: 18,
     color: '#ddd',
-    marginVertical: 5,
+    marginVertical: 8,
   },
   infoValue: {
     color: '#FFD700',
     fontWeight: 'bold',
   },
-  button: {
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    backgroundColor: '#444',
-    borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 20,
-    elevation: 3, // Sombra para Android
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
 });
 
-export default MemberDetails;
-
+export default Profile;
 
 
 
